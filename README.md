@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gift a pet</title>
+
+  
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #f2f2f2;
+      margin: 0;
+    }
+
+    header {
+      background-color: orange;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    nav a {
+      color: white;
+      margin: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .product {
+      background-color: white;
+      padding: 15px;
+      margin: 15px;
+      border-radius: 8px;
+      width: 220px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: 150px;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: orange;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: darkorange;
+    }
+
+    .cart {
+      background-color: white;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sagar Kennel Gokak🐶 </h1>
+    <h2>  Gift a Pet, Gain a Smile</h2>
+    
+    <nav>
+      <a href="#">Home</a>
+      <a href="#pets">Pets</a>
+      <a href="#cart">Cart</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="container" id="products">
+    <h2>Pets in Stock</h2>
+    <h3>Don’t wait! Order now and get your pet soon</h3>
+
+    <div class="product">
+      <img src="C:\Users\Sagar Havaldar\Desktop\Project\lab.webp">
+      
+      <p>Labrador</p>
+      <p><b>Price: ₹8000</b></p>
+      <button onclick="addToCart('Labrador',8000)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="C:\Users\Sagar Havaldar\Desktop\Project\rottweiler.jpg">
+      
+      <p>Rottweiler</p>
+      <p><b>Price: ₹15000</b></p>
+      <button onclick="addToCart('Rottweiler',15000)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="C:\Users\Sagar Havaldar\Desktop\Project\German Shepherd.jpg">
+      
+      <p>German Shepherd</p>
+      <p><b>Price: ₹20000</b></p>
+      <button onclick="addToCart('German Shepherd',20000)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="C:\Users\Sagar Havaldar\Desktop\Project\Great Dane.jpg">
+      
+      <p>Great Dane</p>
+      <p><b>Price: ₹30000</b></p>
+      <button onclick="addToCart('Great Dane',30000)">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="container cart" id="cart">
+    <h2>Shopping Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3>Total Amount: ₹<span id="total">0</span></h3>
+    <button onclick="buyNow()">Buy Now</button>
+    <div id="address" style="display:none;">
+  <h3>Enter Delivery Address</h3>
+
+  <input type="text" id="name" placeholder="Full Name"><br><br>
+  <input type="text" id="addressText" placeholder="Full Address"><br><br>
+  <input type="text" id="phone" placeholder="Mobile Number"><br><br>
+
+  <button onclick="placeOrder()">Place Order</button>
+</div>
+
+
+  </div>
+
+
+  <div class="container" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: sagarkennelgokak@gmail.com</p>
+    <p>Phone: +91 8548081132</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Sagar Kennel Gokak 591307</p>
+  </footer>
+
+  
+  <script>
+    var total = 0;
+
+    function addToCart(itemName, price) {
+      var cartList = document.getElementById('cartItems');
+      var li = document.createElement('li');
+      li.innerHTML = itemName + ' - ₹' + price;
+      cartList.appendChild(li);
+
+      total = total + price;
+      document.getElementById('total').innerHTML = total;
+    }
+  </script>
+
+  <script>
+  function buyNow() {
+    document.getElementById("address").style.display = "block";
+  }
+
+  function placeOrder() {
+    alert("Order placed successfully! Thank you 😊");
+  }
+</script>
+
+<div class="container" id="json">
+  
+
+  <div id="json"></div>
+  <script>
+  fetch("giftapet.json")   
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      var pets = data.pets;
+      var output = "";
+
+      for (var i = 0; i < pets.length; i++) {
+        output += "<div class='product'>";
+        output += "<p><b>Category:</b> " + pets[i].category + "</p>";
+        output += "<p><b>Name:</b> " + pets[i].name + "</p>";
+        output += "<p><b>Breed:</b> " + pets[i].breed + "</p>";
+        output += "<p><b>Age:</b> " + pets[i].age + "</p>";
+        output += "<p><b>Vaccinated:</b> " + pets[i].vaccinated + "</p>";
+        output += "<p><b>Price:</b> ₹" + pets[i].price + "</p>";
+        output += "<button onclick=\"addToCart('" + pets[i].name + "'," + pets[i].price + ")\">Add to Cart</button>";
+        output += "</div>";
+      }
+
+      document.getElementById("giftapet").innerHTML = output;
+    });
+</script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
