@@ -209,11 +209,44 @@
     });
 </script>
 </div>
-
-
-
-
-
-
 </body>
 </html>
+
+JSON File
+{
+  "pets": [
+    {
+      "id": 1,
+      "category": "Dog",
+      "name": "Bruno",
+      "breed": "Golden Retriever",
+      "age": "3 Months",
+      "gender": "Male",
+      "vaccinated": true,
+      "price": 15000,
+      "available": true
+    },
+    {
+      "id": 2,
+      "category": "Cat",
+      "name": "Lily",
+      "breed": "Persian",
+      "age": "3 Months",
+      "gender": "Female",
+      "vaccinated": true,
+      "price": 8000,
+      "available": true
+    },
+    {
+      "id": 3,
+      "category": "Dog",
+      "name": "Rocky",
+      "breed": "German Sheperd",
+      "age": "1 Months",
+      "gender": "Male",
+      "vaccinated": false,
+      "price": 12000,
+      "available": false
+    }
+  ]
+}
